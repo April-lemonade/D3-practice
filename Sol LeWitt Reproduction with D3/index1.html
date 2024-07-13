@@ -1,0 +1,79 @@
+<!--不同形状的蒙板-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sol LeWitt Reproduction with D3</title>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+
+<body>
+    <script>
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const svg = d3.select("body").append("svg").attr('width', width).attr("height", height);
+        const n = 240;
+
+        svg
+            .append('g')
+            .attr('mask', 'url(#mask1)')
+            .selectAll('rect')
+            .data(d3.range(n))
+            .join('rect')
+            .attr('y', (i) => i * 10)
+            .attr('width', width)
+            .attr('height', 5);
+
+        svg
+            .append('g')
+            .attr('mask', 'url(#mask2)')
+            .selectAll('rect')
+            .data(d3.range(n))
+            .join('rect')
+            .attr('x', (i) => i * 10)
+            .attr('width', 5)
+            .attr('height', height);
+
+        const createMask = (selection, id) => {
+            const mask = selection.append("mask").attr("id", `${"mask" + id}`);
+            const xScale = d3.scaleBand().domain(d3.range(d3.symbols.length)).range([0, width]);
+            mask.selectAll("rect")
+                .data(d3.range(d3.symbols.length))
+                .join("rect")
+                .attr("x", (d, i) => xScale(i))
+                .attr("width", xScale.bandwidth())
+                .attr("height", height)
+                .attr('fill', (d, i) =>
+                    ((i + id) % 2 !== 0)
+                        ? 'white'
+                        : 'black'
+                );
+
+            mask.selectAll("g")
+                .data(d3.symbols)
+                .join((enter) => {
+                    enter.append("g")
+                        .attr('transform', (d, i) => `translate(${xScale(i) + xScale.bandwidth() / 2},${height / 2})`)
+                        .append("path")
+                        .attr("d", (d, i) => d3.symbol(d, 5000)())
+                        .attr('fill', (d, i) =>
+                            ((i + id) % 2 === 0)
+                                ? 'white'
+                                : 'black'
+                        )
+                });
+        }
+
+        svg.call(createMask, 1).call(createMask, 2)
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</body>
+
+</html>

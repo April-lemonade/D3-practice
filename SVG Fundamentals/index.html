@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Fundamentals</title>
+</head>
+
+<body>
+    <svg>
+        <circle cx="150" cy="150" r="50" fill="red"></circle>
+        <circle cx="150" cy="150" r="20" fill="green"></circle>
+        <line x1="0" y1="0" x2="100" y2="100" stroke="steelblue" stroke-width="10"></line>
+        <path
+            d="M351.54,120.92H78.46c-3.31,0-6-2.69-6-6s2.69-6,6-6h273.08c3.31,0,6,2.69,6,6S354.85,120.92,351.54,120.92z">
+            <!--M:move to L/l:line L: 绝对定位 l: 相对定位-->
+        </path>
+        <path fill="none" d="M 200 200 l100 100 L300 400" stroke="black" stroke-width="10"></path>
+        <path
+            d="M700.91 410.15C694.087 417.379 694.415 428.772 701.644 435.596C708.874 442.419 720.266 442.091 727.09 434.862L700.91 410.15ZM848.528 306.209C855.352 298.98 855.023 287.587 847.794 280.764C840.565 273.94 829.173 274.268 822.349 281.498L848.528 306.209ZM727.09 434.862L848.528 306.209L822.349 281.498L700.91 410.15L727.09 434.862Z" />
+        <path
+            d="M709.637 418.387C707.362 420.797 707.472 424.594 709.881 426.869C712.291 429.144 716.089 429.034 718.363 426.624L709.637 418.387ZM839.802 297.972C842.076 295.562 841.967 291.765 839.557 289.49C837.147 287.215 833.35 287.325 831.075 289.735L839.802 297.972ZM718.363 426.624L839.802 297.972L831.075 289.735L709.637 418.387L718.363 426.624Z"
+            fill="white" />
+        <circle cx="173.5" cy="358.5" r="70.5" fill="white" stroke="black" stroke-width="12" />
+        <rect x="406" y="65" width="152" height="153" />
+        <circle cx="173.5" cy="141.5" r="76.5" />
+        <path
+            d="M709.624 201.895C707.357 204.312 707.478 208.109 709.895 210.376C712.312 212.643 716.109 212.522 718.376 210.105L709.624 201.895ZM839.376 81.1048C841.643 78.6879 841.522 74.8908 839.105 72.6238C836.688 70.3568 832.891 70.4783 830.624 72.8952L839.376 81.1048ZM718.376 210.105L839.376 81.1048L830.624 72.8952L709.624 201.895L718.376 210.105Z" />
+        <rect x="412" y="288" width="140" height="141" fill="white" stroke="black" stroke-width="12" />ß
+    </svg>
+    <script>
+        //设置画布的大小为窗口大小
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        const svg = document.getElementsByTagName("svg");
+        svg[0].setAttribute("width", windowWidth);
+        svg[0].setAttribute("height", windowHeight);
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!--对前面简单蒙板的复现-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sol LeWitt Reproduction with D3</title>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+
+<body>
+    <script>
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const n = 100;
+        const svg = d3.select("body").append("svg").attr('width', width).attr("height", height);
+
+        const mask1 = svg.append("mask").attr("id", "mask1");
+        mask1.append("rect")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("fill", "black");
+        mask1.append("circle")
+            .attr("cx", width / 2)
+            .attr("cy", height / 2)
+            .attr("r", 200)
+            .attr("fill", "white");
+
+        const mask2 = svg.append("mask").attr("id", "mask2");
+        mask2
+            .append("rect")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("fill", "white");
+        mask2
+            .append("circle")
+            .attr("cx", width / 2)
+            .attr("cy", height / 2)
+            .attr("r", 200)
+            .attr("fill", "black");
+
+
+        svg.append("g")
+            .selectAll("rect")
+            .data(d3.range(n))
+            .join("rect")
+            .attr("width", 10)
+            .attr("height", height)
+            .attr("x", d => d * 20)
+            .attr("fill", "black")
+            .attr("mask", "url(#mask2)");
+
+        svg.append("g")
+            .selectAll("rect")
+            .data(d3.range(n))
+            .join("rect")
+            .attr("width", width)
+            .attr("height", 10)
+            .attr("y", d => d * 20)
+            .attr("fill", "black")
+            .attr("mask", "url(#mask1)");
+
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</body>
+
+</html>

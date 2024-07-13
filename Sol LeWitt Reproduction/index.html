@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sol LeWitt Reproduction</title>
+</head>
+
+<body>
+    <script>
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        const n = 100;
+
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("width", windowWidth);
+        svg.setAttribute("height", windowHeight);
+        document.body.appendChild(svg);
+
+        //两个蒙板都是一个rect和一个circle组成，白色可见，黑色不可见
+        //第一个蒙板，只显示中间的圆
+        const mask1 = document.createElementNS("http://www.w3.org/2000/svg", "mask");
+        mask1.setAttribute("id", "mask1");
+
+        const rect1 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        rect1.setAttribute("width", windowWidth);
+        rect2.setAttribute("height", windowHeight);
+        rect1.setAttribute("fill", "black");
+        mask1.appendChild(rect1);
+
+        const circle1 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle1.setAttribute("cx", windowWidth / 2);
+        circle1.setAttribute("cy", windowHeight / 2);
+        circle1.setAttribute("r", 200);
+        circle1.setAttribute("fill", "white");
+        mask1.appendChild(circle1);
+        svg.appendChild(mask1);
+
+        for (let i = 0; i < n; i++) {
+            const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            rect.setAttribute("width", windowWidth);
+            rect.setAttribute("height", 10);
+            rect.setAttribute("x", 0);
+            rect.setAttribute("y", i * 20);
+            rect.setAttribute("fill", "black");
+            rect.setAttribute("mask", 'url(#mask1)');
+            svg.append(rect);
+        }
+
+        //第二层蒙板，不显示中间的圆
+        const mask2 = document.createElementNS("http://www.w3.org/2000/svg", "mask");
+        mask2.setAttribute("id", "mask2");
+
+        const rect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        rect2.setAttribute("width", windowWidth);
+        rect2.setAttribute("height", windowHeight);
+        rect2.setAttribute("fill", "white");
+        mask2.appendChild(rect2);
+        svg.appendChild(mask2);
+
+        const circle2 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle2.setAttribute("cx", windowWidth / 2);
+        circle2.setAttribute("cy", windowHeight / 2);
+        circle2.setAttribute("r", 200);
+        circle2.setAttribute("fill", "black");
+        mask2.appendChild(circle2);
+        
+        for (let i = 0; i < n; i++) {
+            const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            rect.setAttribute("y", 0);
+            rect.setAttribute("x", i * 20);
+            rect.setAttribute("width", 10);
+            rect.setAttribute("height", windowHeight);
+            rect.setAttribute("fill", "black");
+            rect.setAttribute("mask", 'url(#mask2)');
+            svg.append(rect);
+        }
+
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</body>
+
+</html>
