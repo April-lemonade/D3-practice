@@ -2,12 +2,17 @@
   import * as d3 from "d3";
   import Gradient from "../ components/Gradient.svelte";
   import Head from "../ components/Head.svelte";
+  import GradientWithHead from "../ components/GradientWithHead.svelte";
+  import Copy from "../ components/copy.svelte"
+  // import Test from "../ components/test.svelte";
 
   let width = window.innerWidth;
   let height = window.innerHeight;
   const dataUrl = "./data/data.csv";
+  const HRUrl = "./data/ProteinHR.csv";
   const { csv } = d3;
   let data = [];
+  let HRs = [];
   let xValue, yValue;
   let xScale, yScale;
   let xAxis, yAxis;
@@ -30,6 +35,7 @@
 
   const main = async () => {
     data = await csv(dataUrl);
+    HRs = await csv(HRUrl);
   };
 
   main();
@@ -95,7 +101,27 @@
     {/each}
   </svg>
 </div> -->
-<div class="chart-container" style="height: 100vh;">
+<div class="chart-container">
   <!-- <Gradient {data} {text} {xValue} {yValue} {margin}></Gradient> -->
-  <Head {data} {xValue} {yValue} {margin}></Head>
+  <!-- <Head {data} {xValue} {yValue} {margin}></Head> -->
+  <GradientWithHead {data} {xValue} {yValue} {margin} {HRs}></GradientWithHead>
+  <!-- <Test {data} {xValue} {yValue} {margin}></Test> -->
+   <!-- <Copy {data} {xValue} {yValue} {margin} {HRs}></Copy> -->
 </div>
+
+<style>
+  .chart-container{
+    width: 1080px;  /* 可调整为适合你的设计的最大宽度 */
+    margin: auto;       /* 水平居中显示 */
+    position: relative; /* 相对定位，使SVG可以绝对定位于此容器内 */
+    height: 1920px;
+    
+    
+  }
+ 
+  * {
+    margin: 0;
+    padding: 0;
+    background-color: #FAFAFA;
+  }
+</style>

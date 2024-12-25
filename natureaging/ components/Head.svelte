@@ -4,7 +4,7 @@
     export let xValue = (d) => d.Protein;
     export let yValue = (d) => d.Level;
     let xScale;
-    export let margin;
+    // export let margin;
     let width = window.innerWidth;
     let height = window.innerHeight;
     let groupedData = [];
