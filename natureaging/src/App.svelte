@@ -3,8 +3,9 @@
   import Gradient from "../ components/Gradient.svelte";
   import Head from "../ components/Head.svelte";
   import GradientWithHead from "../ components/GradientWithHead.svelte";
-  import Copy from "../ components/copy.svelte"
+  import Copy from "../ components/copy.svelte";
   // import Test from "../ components/test.svelte";
+  import { onMount } from "svelte";
 
   let width = window.innerWidth;
   let height = window.innerHeight;
@@ -64,6 +65,24 @@
 
     groupedData = Array.from(d3.group(data, (d) => d.target_yrs).entries());
   }
+
+  onMount(() => {
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
+    return () => {
+      window.removeEventListener("resize", updateDimensions);
+    };
+  });
+
+  function updateDimensions() {
+    width = window.innerWidth;
+    height = width / 9;
+  }
+
+  function onWheel(event) {
+    // console.log(event);
+    let delta = event.deltaY || event.detail;
+  }
 </script>
 
 <!-- <div
@@ -101,27 +120,26 @@
     {/each}
   </svg>
 </div> -->
-<div class="chart-container">
+<div class="chart-container" on:wheel={onWheel}>
   <!-- <Gradient {data} {text} {xValue} {yValue} {margin}></Gradient> -->
   <!-- <Head {data} {xValue} {yValue} {margin}></Head> -->
   <GradientWithHead {data} {xValue} {yValue} {margin} {HRs}></GradientWithHead>
   <!-- <Test {data} {xValue} {yValue} {margin}></Test> -->
-   <!-- <Copy {data} {xValue} {yValue} {margin} {HRs}></Copy> -->
+  <!-- <Copy {data} {xValue} {yValue} {margin} {HRs}></Copy> -->
 </div>
 
 <style>
-  .chart-container{
-    width: 1080px;  /* 可调整为适合你的设计的最大宽度 */
-    margin: auto;       /* 水平居中显示 */
+  .chart-container {
+    /* width: 1080px;  可调整为适合你的设计的最大宽度 */
+    margin: auto; /* 水平居中显示 */
     position: relative; /* 相对定位，使SVG可以绝对定位于此容器内 */
-    height: 1920px;
-    
-    
+    /* height: 100vh; */
+    /* overflow-y: scroll; */
   }
- 
+
   * {
     margin: 0;
     padding: 0;
-    background-color: #FAFAFA;
+    background-color: #fafafa;
   }
 </style>
