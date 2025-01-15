@@ -4,7 +4,7 @@
   import Head from "../ components/Head.svelte";
   import GradientWithHead from "../ components/GradientWithHead.svelte";
   import Copy from "../ components/copy.svelte";
-  // import Test from "../ components/test.svelte";
+  import Test from "../ components/test.svelte";
   import { onMount } from "svelte";
 
   let width = window.innerWidth;
@@ -78,11 +78,6 @@
     width = window.innerWidth;
     height = width / 9;
   }
-
-  function onWheel(event) {
-    // console.log(event);
-    let delta = event.deltaY || event.detail;
-  }
 </script>
 
 <!-- <div
@@ -120,7 +115,7 @@
     {/each}
   </svg>
 </div> -->
-<div class="chart-container" on:wheel={onWheel}>
+<div class="chart-container">
   <!-- <Gradient {data} {text} {xValue} {yValue} {margin}></Gradient> -->
   <!-- <Head {data} {xValue} {yValue} {margin}></Head> -->
   <GradientWithHead {data} {xValue} {yValue} {margin} {HRs}></GradientWithHead>
@@ -130,16 +125,17 @@
 
 <style>
   .chart-container {
-    /* width: 1080px;  可调整为适合你的设计的最大宽度 */
-    margin: auto; /* 水平居中显示 */
-    position: relative; /* 相对定位，使SVG可以绝对定位于此容器内 */
-    /* height: 100vh; */
-    /* overflow-y: scroll; */
+    margin: auto; 
+    position: relative;
+    pointer-events: all;
+    overflow: hidden;
+    cursor: none;
   }
 
   * {
     margin: 0;
     padding: 0;
     background-color: #fafafa;
+    cursor: none;
   }
 </style>

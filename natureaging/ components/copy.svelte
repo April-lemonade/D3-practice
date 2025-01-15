@@ -258,7 +258,7 @@
             <!-- yScale(d3.max(values, (d) => yValue(d))) -250 -->
             {#if yScale}
                 {#each yScale.ticks() as tick, i}
-                    {#if i % 2 === 0}
+                    <!-- {#if i % 2 === 0}
                         <line
                             x1={xScale(xScale.domain()[0])}
                             x2={xScale(
@@ -269,7 +269,7 @@
                             stroke="#afafaf"
                             stroke-width="0.5"
                         />
-                    {/if}
+                    {/if} -->
                     {#each uniqueProteinNames as name, j}
                         {#if i % 2 === 0}
                             <line
@@ -355,20 +355,20 @@
                 </g>
 
                 {#if i % 3 === 0}
-                    <circle
+                    <!-- <circle
                         cx={xScale(xGroups[Math.floor(i / 3) * 3 + 1][0])}
                         cy={600 - 60}
                         r="50"
                         fill="none"
                         stroke="#dfdfdf"
-                    ></circle>
-                    <circle
+                    ></circle> -->
+                    <!-- <circle
                         cx={xScale(xGroups[Math.floor(i / 3) * 3 + 1][0])}
                         cy={700 - 60}
                         r="50"
                         fill="#fafafa"
                         stroke="none"
-                    ></circle>
+                    ></circle> -->
 
                     <text
                         x={xScale(xGroups[Math.floor(i / 3) * 3 + 1][0])}
@@ -416,7 +416,7 @@
                         xGroups[Math.floor(i / 3) * 3 + 1][0],
                     )}, {750 - 120})"
                 >
-                    <defs>
+                    <!-- <defs>
                         <pattern
                             id="diagonalHatch"
                             patternUnits="userSpaceOnUse"
@@ -446,8 +446,8 @@
                                 shape-rendering="crispEdges"
                             />
                         </pattern>
-                    </defs>
-                    <path
+                    </defs> -->
+                    <!-- <path
                         d={d3
                             .areaRadial()
                             .angle((d) => yearScale(-d.target_yrs))
@@ -457,7 +457,7 @@
                         fill="none"
                         stroke={i % 3 === 2 ? "#afafaf" : "#dfdfdf"}
                         stroke-width="0.5"
-                    ></path>
+                    ></path> -->
                     <path
                         d={d3
                             .lineRadial()
@@ -496,7 +496,7 @@
                         />
                     {/each}
 
-                    <line
+                    <!-- <line
                         stroke-dasharray="4 2"
                         x1={d3.pointRadial(
                             yearScale(-values[0].target_yrs),
@@ -518,9 +518,9 @@
                                 parseFloat(values[values.length - 1].Level),
                             ),
                         )[1]}
-                    />
+                    /> -->
                     {#each values as value}
-                        <text
+                        <!-- <text
                             x={d3.pointRadial(
                                 yearScale(-value.target_yrs),
                                 levelScale(parseFloat(value.Level)),
@@ -532,11 +532,11 @@
                             font-size="8pt"
                         >
                             {x}
-                        </text>
+                        </text> -->
                     {/each}
                 </g>
             {/each}
-            {#each xGroups as [x, values], i}
+            <!-- {#each xGroups as [x, values], i}
                 {#each values as value}
                     <circle
                         transform="translate({xScale(
@@ -555,7 +555,7 @@
                         fill="#1f1f1f"
                     />
                 {/each}
-            {/each}
+            {/each} -->
         </g>
 
         <g id="areas">
@@ -617,7 +617,7 @@
                                 <embed
                                     {width}
                                     {height}
-                                    src="../src/assets/headtext.svg"
+                                    src="../src/assets/final4.svg"
                                     type="image/svg+xml"
                                 />
                             </foreignObject>
@@ -632,7 +632,7 @@
                 {#each yearData as d, i1}
                     {#if xValue(d).includes("GFAP")}
                         {#if i === groupedData.length - 1 || i === 0}
-                            <circle
+                            <!-- <circle
                                 cx={xScale(xValue(d))}
                                 cy={yScale(yValue(d))}
                                 r="18"
@@ -646,43 +646,43 @@
                                 y={yScale(yValue(d))}
                             >
                                 {yValue(d).toFixed(2)}
-                            </text>
+                            </text> -->
                         {:else}
-                            <line
+                            <!-- <line
                                 stroke="black"
                                 x1={xScale(xValue(d)) - 5}
                                 x2={xScale(xValue(d)) - 10}
                                 y1={yScale(yValue(d))}
                                 y2={yScale(yValue(d))}
-                            />
-                            <line
+                            /> -->
+                            <!-- <line
                                 stroke="black"
                                 x1={xScale(xValue(d)) + 5}
                                 x2={xScale(xValue(d)) + 10}
                                 y1={yScale(yValue(d))}
                                 y2={yScale(yValue(d))}
-                            />
-                            <circle
+                            /> -->
+                            <!-- <circle
                                 cx={xScale(xValue(d))}
                                 cy={yScale(yValue(d))}
                                 r="1.5"
-                            />
+                            /> -->
                         {/if}
-                        {:else if xValue(d).includes("GDF15")}
-                        <circle
+                        <!-- {:else if xValue(d).includes("GDF15")} -->
+                        <!-- <circle
                             cx={xScale(xValue(d))}
                             cy={yScale(yValue(d))}
                             r="1.5"
-                        />
-                        <line
+                        /> -->
+                        <!-- <line
                             x1={xScale(xValue(d)) - 3}
                             x2={xScale(xValue(d)) + 3}
                             y1={yScale(yValue(d))}
                             y2={yScale(yValue(d))}
                             style="mix-blend-mode: difference;stroke:white"
-                        ></line>
+                        ></line> -->
                     {:else}
-                        <line
+                        <!-- <line
                             x1={xScale(xValue(d)) - 3}
                             x2={xScale(xValue(d)) + 3}
                             y1={yScale(yValue(d)) - 3}
@@ -695,34 +695,34 @@
                             y1={yScale(yValue(d)) + 3}
                             y2={yScale(yValue(d)) - 3}
                             style="mix-blend-mode: difference;stroke:white"
-                        ></line>
-                        {#if i1 != 0}
-                        <line
+                        ></line> -->
+                        <!-- {#if i1 != 0} -->
+                        <!-- <line
                             stroke="black"
                             x1={xScale(xValue(d)) - 5}
                             x2={xScale(xValue(d)) - 10}
                             y1={yScale(yValue(d))}
                             y2={yScale(yValue(d))}
-                        />
-                        {/if}}
-                        {#if i1 != yearData.length - 1}
-                        <line
+                        /> -->
+                        <!-- {/if}} -->
+                        <!-- {#if i1 != yearData.length - 1} -->
+                        <!-- <line
                             stroke="black"
                             x1={xScale(xValue(d)) + 5}
                             x2={xScale(xValue(d)) + 10}
                             y1={yScale(yValue(d))}
                             y2={yScale(yValue(d))}
-                        />
-                        {/if}
+                        /> -->
+                        <!-- {/if} -->
 
-                        <circle
+                        <!-- <circle
                             cx={xScale(xValue(d))}
                             cy={yScale(yValue(d))}
                             r="1.5"
-                        />
+                        /> -->
                     {/if}
 
-                    <g style="mix-blend-mode: multiply;fill:#afafaf">
+                    <!-- <g style="mix-blend-mode: multiply;fill:#afafaf">
                         {#if i === groupedData.length - 1}
                             <polygon
                                 points="
@@ -897,16 +897,16 @@
     "
                             />
                         {/if}
-                    </g>
+                    </g> -->
 
-                    <circle
+                    <!-- <circle
                         fill="none"
                         stroke="#3f3f3f"
                         cx={xScale(xValue(d))}
                         cy={yScale(yValue(d))}
                         r={10 + 4 * (groupedData.length - i)}
                         style="box-shadow: inset 0 0 0 10px black;"
-                    />
+                    /> -->
                     <circle
                     cx={xScale(xValue(d))}
                     cy={yScale(yValue(d))}
@@ -929,7 +929,7 @@
         </g>
 
         <g id="legend">
-            {#if circlePositions}
+            <!-- {#if circlePositions}
                 <text x="40" y="-15" class="legendText">
                     Time to diagnosis (years)
                 </text>
@@ -951,7 +951,7 @@
                         {-circle.year}
                     </text>
                 {/each}
-            {/if}
+            {/if} -->
             <g>
                 <text x="100" y="-20" class="legendTitle">
                     Time to diagnosis 
@@ -959,7 +959,7 @@
                 <text x="100" y="-5" class="legendTitle"> 
                     (yrs)
                 </text>
-                {#each groupedData as [year, yearData], i}
+                <!-- {#each groupedData as [year, yearData], i}
                     <circle
                         cx={100}
                         cy={100 - (10 + 4 * (groupedData.length - i))}
@@ -992,8 +992,8 @@
                     >
                         {-year}
                     </text>
-                {/each}
-                <!-- {#each groupedData as [year, yearData], i}
+                {/each} -->
+                {#each groupedData as [year, yearData], i}
                 <circle
                         cx={80}
                         cy={25 + 33 * i}
@@ -1019,7 +1019,7 @@
                     >
                         {-year}
                     </text>
-                {/each} -->
+                {/each}
             </g>
             <g transform="translate(910 -90)">
                 <!-- <text x="0" y="0" class="legendTitle">
@@ -1037,9 +1037,9 @@
                 </text>
                 <g transform="translate(10 110)">
                     <g style="transform:  scale(0.9);">
-                        <circle x="0" y="0" r="140" fill="none" stroke="#dfdfdf"
-                        ></circle>
-                        {#if levelScale}
+                        <!-- <circle x="0" y="0" r="140" fill="none" stroke="#dfdfdf"
+                        ></circle> -->
+                        <!-- {#if levelScale}
                             {#each yearScale.domain() as yearTick, i}
                                 <line
                                     x1={d3.pointRadial(
@@ -1096,7 +1096,7 @@
                                     {/if}
                                 {/each}
                             {/each}
-                        {/if}
+                        {/if} -->
 
                         {#each HRs.slice(0, 3) as HR, i}
                             <!-- <path
@@ -1288,7 +1288,7 @@
                             </text>
                         {/each}
                         {#each xGroups.slice(0, 3) as [x, values], i}
-                            {#each values as value, index}
+                            <!-- {#each values as value, index}
                                 <circle
                                     cx={d3.pointRadial(
                                         yearScale(-value.target_yrs),
@@ -1308,7 +1308,7 @@
                                     stroke="none"
                                     fill="#1f1f1f"
                                 />
-                            {/each}
+                            {/each} -->
                             <path
                                 d={d3
                                     .lineRadial()
@@ -1359,7 +1359,7 @@
                             protective effect.
                         </div>
                     </foreignObject>
-                    {#if levelScale}
+                    <!-- {#if levelScale}
                         {#each yearScale.domain() as yearTick, i}
                             {#if i === 0}
                                 <line
@@ -1452,10 +1452,10 @@
                                 </text>
                             {/if}
                         {/each}
-                    {/if}
+                    {/if} -->
 
                     <g>
-                        {#each ["GDF15", "NEFL", "GFAP"] as p, i}
+                        <!-- {#each ["GDF15", "NEFL", "GFAP"] as p, i}
                             <circle
                                 transform="scale(0.6)"
                                 cx="0"
@@ -1478,7 +1478,7 @@
                             >
                                 {p}
                             </text>
-                        {/each}
+                        {/each} -->
                     </g>
                 </g>
             </g>
@@ -1487,8 +1487,8 @@
         <g id="proteinIntro" transform="translate(0 130)">
             <g id="NEFLIntro">
                 <foreignObject
-                    x="720"
-                    y="200"
+                    x={width * 0.7}
+                    y="250"
                     width={introWidth}
                     height={introHeight}
                 >

@@ -140,7 +140,7 @@
             yScale = d3
                 .scaleLinear()
                 .domain([globalMin, globalMax])
-                .range([height - 450, 1100]);
+                .range([height - 450, 1500]);
             flag = true;
         }
 
@@ -173,7 +173,7 @@
             .style("stroke-width", "0.5px"); // 设置为较细的线
         yAxisG.select(".domain").remove();
         let yAxisTop = yScale(yScale.domain()[1]);
-        yAxisG.selectAll("*").remove();
+        yAxisG.selectAll(".y-axis-label")?.remove();
         yAxisG.selectAll(".tick line").attr("stroke", "black");
         yAxisG
             .selectAll(".tick text")
@@ -226,9 +226,13 @@
         console.log(HRs);
     }
 
+    let oldMan, stick;
+
     onMount(() => {
         falling = document.getElementById("falling");
         title = document.getElementById("headtext");
+        oldMan = document.getElementById("path1");
+        stick = document.getElementById("path2");
         yScale = d3
             .scaleLinear()
             .domain([globalMin, globalMax])
@@ -248,8 +252,13 @@
 
             if (scrollTop !== 0) {
                 falling.style.transform = `translate(34%, ${12 + (scrollTop / 10) * 1.5}%) scale(${0.5 - scrollTop / 4000}) rotate(-40deg)`;
+                oldMan.style.transform = `rotate(0deg)`;
+                stick.style.transform = `translate(9%, -5%) rotate(40deg)`;
             } else {
+                // oldMan.style.transform = `translate(34%, ${12 + (scrollTop / 10) * 1.5}%) scale(${0.5 - scrollTop / 4000}) rotate(-20deg)`;
+                // stick.style.transform = `translate(34%, ${12 + (scrollTop / 10) * 1.5}%) scale(${0.5 - scrollTop / 4000}) rotate(-20deg)`;
                 falling.style.transform = `translate(34%, ${12 + (scrollTop / 10) * 1.5}%) scale(${0.5 - scrollTop / 4000}) rotate(-20deg)`;
+                stick.style.transform = `translate(0%, 0%) rotate(0deg)`;
             }
 
             falling.style.opacity = `${Math.max(1 - scrollTop / 1000, 0.5)}`;
@@ -257,6 +266,22 @@
         };
         container.addEventListener("scroll", updateScrollTop);
         updateScrollTop();
+
+        const scrollContainer = document.getElementById("container"); // 替换为实际容器的选择器
+        // let scrollSpeed = 0.5; // 滚动速度
+        // function smoothScroll() {
+        //     scrollContainer.scrollBy(0, scrollSpeed); // 滚动容器内
+        //     requestAnimationFrame(smoothScroll); // 下一帧调用
+        // }
+        // setTimeout(() => {
+        //     requestAnimationFrame(smoothScroll); // 延迟后启动平滑滚动
+        // }, 1000); // 延迟 1 秒
+        
+        // setTimeout(() => {
+        //     setInterval(() => {
+        //         container.scrollBy(0, 5); // 滚动容器内
+        //     }, 100);
+        // }, 1000); // 延迟 1 秒（1000 毫秒）
     });
 
     $: if (source) {
@@ -298,7 +323,7 @@
         {width}
         {height}
         viewBox="0 0 {width} {height}"
-        style="background-color: #FAFAFA;position: relative;"
+        style="background-color: #FAFAFA;position: relative;cursor: none;"
     >
         <g id="lines">
             <!-- yScale(d3.max(values, (d) => yValue(d))) -250 -->
@@ -703,14 +728,15 @@
                                 {height}
                                 id="headText"
                                 style="opacity: {Math.min(
-                                    Math.pow(scrollTop / (height * 0.3), 2),
+                                    Math.pow(scrollTop / (height * 0.1), 2),
                                     1,
-                                )}"
+                                )};cursor: none;"
                             >
                                 <embed
+                                    style="cursor: none;"
                                     {width}
                                     {height}
-                                    src="../src/assets/headtext.svg"
+                                    src="../src/assets/final5.svg"
                                     type="image/svg+xml"
                                 />
                             </foreignObject>
@@ -1046,10 +1072,10 @@
                 {/each}
             {/if} -->
             <g>
-                <text x="100" y="-20" class="legendTitle">
+                <text x="100" y="-10" class="legendTitle">
                     Time to diagnosis
                 </text>
-                <text x="100" y="-5" class="legendTitle"> (yrs) </text>
+                <text x="100" y="5" class="legendTitle"> (yrs) </text>
                 <!-- {#each groupedData as [year, yearData], i}
                     <circle
                         cx={100}
@@ -1087,7 +1113,7 @@
                 {#each groupedData as [year, yearData], i}
                     <circle
                         cx={80}
-                        cy={25 + 33 * i}
+                        cy={35 + 33 * i}
                         r={16 - (groupedData.length - i)}
                         fill="none"
                         stroke="#ededed"
@@ -1095,7 +1121,7 @@
                     />
                     <circle
                         cx={80}
-                        cy={25 + 33 * i}
+                        cy={35 + 33 * i}
                         r={12 - (groupedData.length - i)}
                         fill="none"
                         stroke="#4f4f4f"
@@ -1103,7 +1129,7 @@
                     />
                     <text
                         x={120}
-                        y={25 + 33 * i}
+                        y={35 + 33 * i}
                         dominant-baseline="middle"
                         text-anchor="end"
                         class="legendText"
@@ -1112,13 +1138,13 @@
                     </text>
                 {/each}
             </g>
-            <g transform="translate({width * 0.87} -90)">
+            <g transform="translate({width * 0.87} -1400)">
                 <!-- <text x="0" y="0" class="legendTitle">
                     Temporal trajectories of plasma proteins
                 </text> -->
                 <text
                     x="10"
-                    y="10"
+                    y="20"
                     text-anchor="middle"
                     class="legendTitle"
                     style="font-size: 10pt;"
@@ -1126,8 +1152,8 @@
                     <!-- Dementia -->
                     Protein HR for Disease
                 </text>
-                <g transform="translate(10 110)">
-                    <g style="transform:  scale(0.9);">
+                <g transform="translate(10 90)">
+                    <g style="transform:  scale(0.6);">
                         <!-- <circle x="0" y="0" r="140" fill="none" stroke="#dfdfdf"
                         ></circle> -->
                         <!-- {#if levelScale}
@@ -1436,8 +1462,8 @@
                         {/if}
                     </g>
                     <foreignObject
-                        x="-80"
-                        y="190"
+                        x="-300"
+                        y="-50"
                         width="205"
                         height="200"
                         class="legendText"
@@ -1579,7 +1605,7 @@
             <g id="NEFLIntro">
                 <foreignObject
                     x={width * 0.7}
-                    y="200"
+                    y="250"
                     width={introWidth}
                     height={introHeight}
                 >
@@ -1634,7 +1660,7 @@
         </g>
 
         <g id="source">
-            <foreignObject x="0" y="0" width="215" height="100">
+            <foreignObject x="1170" y="35" width="255" height="58">
                 <div>
                     <p>SOURCE:</p>
                     <p>
@@ -1662,6 +1688,7 @@
         margin: 0;
         padding: 0;
         overflow: hidden;
+        cursor: none;
     }
 
     .labelText {
